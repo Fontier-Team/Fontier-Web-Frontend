@@ -2,6 +2,35 @@ import React, {useEffect} from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+interface FontSizeSelectorProps {
+  fontSize: number
+  numFonts: number
+  onChange: (fontSize: number) => void
+}
+
+export const FontSizeSelector: React.FC<FontSizeSelectorProps> = ({ fontSize, numFonts, onChange }) => {
+  return (
+    <div className="rounded-xl px-6 py-4 flex flex-row items-center shadow-lg gap-2">
+      <div className="text-secondary-text w-12 text-right text-lg">{fontSize} px</div>
+      <div className="w-60 flex flex-row items-center">
+        <input
+          className="slider"
+          type="range"
+          value={fontSize}
+          min={0}
+          max={96}
+          onChange={e => onChange(Number(e.target.value))}
+        />
+      </div>
+      <div className="grow" />
+      <div>
+        • {numFonts} Similar Fonts
+      </div>
+      <Image src="/color-ring.png" alt="" width={24} height={24} />
+    </div>
+  )
+}
+
 interface FontPreviewProps {
   font: FontOverview
   previewText: string
@@ -28,7 +57,7 @@ export const FontPreview: React.FC<FontPreviewProps> = ({ font, previewText, fon
 
   return (
     <>
-      <div className="flex flex-col items-stretch rounded-lg h-40 shadow-lg">
+      <div className="flex flex-col items-stretch rounded-lg shadow-lg">
         <div className="bg-secondary-orange px-6 py-2 rounded-t-lg flex flex-row">
           <div className="grow">{font.displayName}</div>
           <Link href={font.downloadUrl}>
@@ -38,40 +67,11 @@ export const FontPreview: React.FC<FontPreviewProps> = ({ font, previewText, fon
             </div>
           </Link>
         </div>
-        <div className="grow rounded-b-lg px-6 py-2 text-black" style={{ fontFamily: `${font.name}`, fontSize }}>
+        <div className="bg-white grow rounded-b-lg px-6 py-2 text-black" style={{ fontFamily: `${font.name}`, fontSize }}>
           {previewText}
         </div>
       </div>
     </>
-  )
-}
-
-interface FontSizeSelectorProps {
-  fontSize: number
-  numFonts: number
-  onChange: (fontSize: number) => void
-}
-
-export const FontSizeSelector: React.FC<FontSizeSelectorProps> = ({ fontSize, numFonts, onChange }) => {
-  return (
-    <div className="rounded-xl px-6 py-4 flex flex-row items-center shadow-lg gap-2">
-      <div className="text-secondary-text w-12 text-right text-lg">{fontSize} px</div>
-      <div className="w-60 flex flex-row items-center">
-        <input
-          className="slider"
-          type="range"
-          value={fontSize}
-          min={0}
-          max={96}
-          onChange={e => onChange(Number(e.target.value))}
-        />
-      </div>
-      <div className="grow" />
-      <div>
-        · {numFonts} Similar Fonts
-      </div>
-      <Image src="/color-ring.png" alt="" width={24} height={24} />
-    </div>
   )
 }
 

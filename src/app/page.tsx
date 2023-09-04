@@ -48,7 +48,7 @@ export default function Home() {
             selected={selected}
             onClick={setSelected}
           />
-          <div className="card bg-white w-full h-[600px] flex flex-row gap-4">
+          <div className="card bg-white w-full min-h-[600px] flex flex-row gap-4">
             <div className="flex-1 flex flex-col gap-4">
               <div className="h-96">
                 <ImageUploadZone image={image} onUpload={(image) => setImage(image)} />
