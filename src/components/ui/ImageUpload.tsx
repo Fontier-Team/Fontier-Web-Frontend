@@ -18,7 +18,7 @@ export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onUpload, imag
   return (
     <div
       {...getRootProps()}
-      className="gray-card relative h-full w-full flex flex-col items-center justify-center text-primary-gray cursor-pointer text-lg font-light gap-6"
+      className="card bg-primary-orange relative h-full w-full flex flex-col items-center justify-center text-primary-gray cursor-pointer font-light gap-6"
     >
       <input {...getInputProps()} />
       <Image src="/camera.svg" alt="Upload Icon" width={50} height={50} />

@@ -3,7 +3,7 @@
 import React from "react";
 import {ImageUploadZone} from "@/components/ui/ImageUpload";
 import {NavBar} from "@/components/section/Navbar";
-import {FontPreview} from "@/components/ui/FontPreview";
+import {FontPreviewList} from "@/components/ui/FontPreview";
 
 interface TabButtonGroupProps {
   options: string[]
@@ -33,26 +33,6 @@ const TabButtonGroup: React.FC<TabButtonGroupProps> = ({ options, selected, onCl
   )
 }
 
-interface FontPreviewListProps {
-  fonts: FontOverview[]
-  previewText: string
-}
-
-const FontPreviewList: React.FC<FontPreviewListProps> = ({ fonts, previewText }) => {
-  return (
-    <div className="flex flex-col items-stretch gap-4">
-      {fonts.map((font, index) => (
-        <FontPreview
-          key={index}
-          font={font}
-          previewText={previewText ? previewText : "Discover Free Fonts with AI"}
-          fontSize={20}
-        />
-      ))}
-    </div>
-  )
-}
-
 export default function Home() {
   const [selected, setSelected] = React.useState(0)
   const [image, setImage] = React.useState<File | null>(null)
@@ -68,15 +48,15 @@ export default function Home() {
             selected={selected}
             onClick={setSelected}
           />
-          <div className="card w-full h-[600px] flex flex-row gap-4">
+          <div className="card bg-white w-full h-[600px] flex flex-row gap-4">
             <div className="flex-1 flex flex-col gap-4">
-              <div className="grow">
+              <div className="h-96">
                 <ImageUploadZone image={image} onUpload={(image) => setImage(image)} />
               </div>
               <textarea
                 value={previewText}
                 onChange={(e) => setPreviewText(e.target.value)}
-                className="gray-card placeholder:text-primary-gray focus:outline-none h-20"
+                className="card bg-secondary-gray placeholder:text-primary-gray focus:outline-none h-20"
                 placeholder="Enter text here to preview the corresponding font effect."
               />
             </div>

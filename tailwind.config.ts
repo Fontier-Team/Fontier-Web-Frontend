@@ -18,7 +18,7 @@ const config: Config = {
           text: '#A45A04',
           pink: '#FFF9F6',
           gray: '#B3B3B3',
-          orange: '#F5D1C0',
+          orange: '#FFDBC9',
         },
         secondary: {
           text: '#CF9E86',
