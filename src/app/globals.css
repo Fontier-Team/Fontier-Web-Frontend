@@ -42,8 +42,38 @@ body {
 }
 
 .slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+  width: 12px; /* Set a specific slider handle width */
+  height: 12px; /* Slider handle height */
   background: #04AA6D; /* Green background */
   cursor: pointer; /* Cursor on hover */
+  @apply bg-primary-text rounded-full;
+}
+
+.slogan {
+  background: linear-gradient(90deg, #9B5DFF 1.43%, #F73ECF 23.69%, #FE9278 45.95%, #ffe27b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-input-large {
+  @apply px-4 py-3 rounded-lg focus:outline-none shadow-lg border-2 border-primary-text
+}
+
+.text-input-large::placeholder {
+  @apply text-secondary-text
+}
+
+.text-input-large:disabled,
+.text-input-large[disabled]{
+  @apply bg-secondary-gray border-secondary-text text-primary-gray cursor-not-allowed
+}
+
+.button-large {
+  @apply px-4 py-3 rounded-lg bg-primary-text text-white text-center cursor-pointer
+}
+
+.button-large:disabled,
+.button-large[disabled]{
+  @apply bg-secondary-gray text-primary-gray cursor-not-allowed
 }

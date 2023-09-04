@@ -24,6 +24,9 @@ const config: Config = {
           text: '#CF9E86',
           gray: '#F5F5F5',
           orange: '#FFF9F6',
+        },
+        transparent: {
+          orange: '#FEDCCB6B',
         }
       },
       fontFamily: {

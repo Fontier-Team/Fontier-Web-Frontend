@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export const NavBar = () => {
+const NavBar = () => {
   return (
     <div className="w-full flex flex-row items-center justify-center px-4 py-6">
       <div className="content-width h-full flex flex-row grow items-center gap-2">
@@ -12,3 +12,5 @@ export const NavBar = () => {
     </div>
   )
 }
+
+export default NavBar
