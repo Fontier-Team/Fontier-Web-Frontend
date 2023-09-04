@@ -5,6 +5,21 @@ import {ImageUploadZone} from "@/components/ui/ImageUpload";
 import {NavBar} from "@/components/section/Navbar";
 import {FontPreviewList} from "@/components/ui/FontPreview";
 
+const TEST_FONTS_DATA = [
+  {
+    name: "Space Grotesk",
+    variants: [],
+    displayName: "Space Grotesk",
+    downloadUrl: "",
+  },
+  {
+    name: "Inter",
+    variants: [],
+    displayName: "Inter",
+    downloadUrl: "",
+  }
+]
+
 interface TabButtonGroupProps {
   options: string[]
   selected: number
@@ -37,6 +52,8 @@ export default function Home() {
   const [selected, setSelected] = React.useState(0)
   const [image, setImage] = React.useState<File | null>(null)
   const [previewText, setPreviewText] = React.useState<string>("")
+  const [matching, setMatching] = React.useState(false)
+  const [fonts, setFonts] = React.useState<FontOverview[]>([])
 
   return (
     <>
@@ -51,7 +68,15 @@ export default function Home() {
           <div className="card bg-white w-full min-h-[600px] flex flex-row gap-4">
             <div className="flex-1 flex flex-col gap-4">
               <div className="h-96">
-                <ImageUploadZone image={image} onUpload={(image) => setImage(image)} />
+                <ImageUploadZone image={image} onUpload={(image) => {
+                  setImage(image)
+                  setMatching(true)
+                  setFonts([])
+                  setTimeout(() => {
+                    setFonts(TEST_FONTS_DATA)
+                    setMatching(false)
+                  }, 1000)
+                }} />
               </div>
               <textarea
                 value={previewText}
@@ -62,21 +87,9 @@ export default function Home() {
             </div>
             <div className="flex-1">
               <FontPreviewList
-                fonts={[
-                  {
-                    name: "Space Grotesk",
-                    variants: [],
-                    displayName: "Space Grotesk",
-                    downloadUrl: "",
-                  },
-                  {
-                    name: "Inter",
-                    variants: [],
-                    displayName: "Inter",
-                    downloadUrl: "",
-                  }
-                ]}
+                fonts={fonts}
                 previewText={previewText}
+                matching={matching}
               />
             </div>
           </div>

@@ -10,22 +10,30 @@ interface FontSizeSelectorProps {
 
 export const FontSizeSelector: React.FC<FontSizeSelectorProps> = ({ fontSize, numFonts, onChange }) => {
   return (
-    <div className="rounded-xl px-6 py-4 flex flex-row items-center shadow-lg gap-2">
-      <div className="text-secondary-text w-12 text-right text-lg">{fontSize} px</div>
-      <div className="w-60 flex flex-row items-center">
-        <input
-          className="slider"
-          type="range"
-          value={fontSize}
-          min={0}
-          max={96}
-          onChange={e => onChange(Number(e.target.value))}
-        />
-      </div>
-      <div className="grow" />
-      <div>
-        • {numFonts} Similar Fonts
-      </div>
+    <div className="rounded-xl px-6 py-4 flex flex-row items-center shadow-lg gap-2 text-secondary-text">
+      {numFonts === 0 ? (
+        <div className="grow">
+          Free Open Source Font
+        </div>
+      ) : (
+        <>
+          <div className="w-12 text-right">{fontSize} px</div>
+          <div className="w-60 flex flex-row items-center">
+            <input
+              className="slider"
+              type="range"
+              value={fontSize}
+              min={0}
+              max={96}
+              onChange={e => onChange(Number(e.target.value))}
+            />
+          </div>
+          <div className="grow" />
+          <div>
+            • {numFonts} Similar Fonts
+          </div>
+        </>
+      )}
       <Image src="/color-ring.png" alt="" width={24} height={24} />
     </div>
   )
@@ -58,7 +66,7 @@ export const FontPreview: React.FC<FontPreviewProps> = ({ font, previewText, fon
   return (
     <>
       <div className="flex flex-col items-stretch rounded-lg shadow-lg">
-        <div className="bg-secondary-orange px-6 py-2 rounded-t-lg flex flex-row">
+        <div className="bg-secondary-orange text-secondary-text px-6 py-2 rounded-t-lg flex flex-row">
           <div className="grow">{font.displayName}</div>
           <Link href={font.downloadUrl}>
             <div className="flex flex-row items-center gap-2">
@@ -78,14 +86,19 @@ export const FontPreview: React.FC<FontPreviewProps> = ({ font, previewText, fon
 interface FontPreviewListProps {
   fonts: FontOverview[]
   previewText: string
+  matching: boolean
 }
 
-export const FontPreviewList: React.FC<FontPreviewListProps> = ({ fonts, previewText }) => {
+export const FontPreviewList: React.FC<FontPreviewListProps> = ({ fonts, previewText, matching }) => {
   const [fontSize, setFontSize] = React.useState(20)
   return (
     <div className="flex flex-col items-stretch gap-4">
       <FontSizeSelector fontSize={fontSize} numFonts={fonts.length} onChange={setFontSize} />
-      {fonts.map((font, index) => (
+      {matching ? (
+        <div className="card flex flex-row items-center justify-center text-primary-gray shadow-lg h-40">
+          matching...
+        </div>
+      ) : fonts.map((font, index) => (
         <FontPreview
           key={index}
           font={font}
