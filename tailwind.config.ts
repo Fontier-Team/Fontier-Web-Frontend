@@ -16,10 +16,14 @@ const config: Config = {
       colors: {
         primary: {
           text: '#A45A04',
-          pink: '#FFF9F6'
+          pink: '#FFF9F6',
+          gray: '#B3B3B3',
+          orange: '#F5D1C0',
         },
         secondary: {
           text: '#CF9E86',
+          gray: '#F5F5F5',
+          orange: '#FFF9F6',
         }
       },
       fontFamily: {
