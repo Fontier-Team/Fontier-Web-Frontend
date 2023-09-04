@@ -7,9 +7,13 @@ body {
 }
 
 .content-width {
-  @apply max-w-6xl;
+  @apply max-w-7xl;
 }
 
 .card {
   @apply bg-white rounded-lg p-4;
+}
+
+.gray-card {
+  @apply bg-secondary-gray rounded-lg p-4;
 }

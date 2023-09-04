@@ -1,19 +1,9 @@
 "use client"
 
-import Image from 'next/image'
 import React from "react";
-
-const NavBar = () => {
-  return (
-    <div className="w-full flex flex-row items-center justify-center p-5">
-      <div className="content-width h-full flex flex-row grow items-center gap-2">
-        <Image src="/fontier-icon.svg" alt="Logo" width={50} height={50} />
-        <div className="font-space-grotesk font-light text-lg">Fontier</div>
-        <div className="grow"/>
-      </div>
-    </div>
-  )
-}
+import {ImageUploadZone} from "@/components/ui/ImageUpload";
+import {NavBar} from "@/components/section/Navbar";
+import {FontPreview} from "@/components/ui/FontPreview";
 
 interface TabButtonGroupProps {
   options: string[]
@@ -43,8 +33,31 @@ const TabButtonGroup: React.FC<TabButtonGroupProps> = ({ options, selected, onCl
   )
 }
 
+interface FontPreviewListProps {
+  fonts: FontOverview[]
+  previewText: string
+}
+
+const FontPreviewList: React.FC<FontPreviewListProps> = ({ fonts, previewText }) => {
+  return (
+    <div className="flex flex-col items-stretch gap-4">
+      {fonts.map((font, index) => (
+        <FontPreview
+          key={index}
+          font={font}
+          previewText={previewText ? previewText : "Discover Free Fonts with AI"}
+          fontSize={20}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function Home() {
   const [selected, setSelected] = React.useState(0)
+  const [image, setImage] = React.useState<File | null>(null)
+  const [previewText, setPreviewText] = React.useState<string>("")
+
   return (
     <>
       <NavBar />
@@ -55,8 +68,37 @@ export default function Home() {
             selected={selected}
             onClick={setSelected}
           />
-          <div className="card w-full h-[600px]">
-
+          <div className="card w-full h-[600px] flex flex-row gap-4">
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="grow">
+                <ImageUploadZone image={image} onUpload={(image) => setImage(image)} />
+              </div>
+              <textarea
+                value={previewText}
+                onChange={(e) => setPreviewText(e.target.value)}
+                className="gray-card placeholder:text-primary-gray focus:outline-none h-20"
+                placeholder="Enter text here to preview the corresponding font effect."
+              />
+            </div>
+            <div className="flex-1">
+              <FontPreviewList
+                fonts={[
+                  {
+                    name: "Space Grotesk",
+                    variants: [],
+                    displayName: "Space Grotesk",
+                    downloadUrl: "",
+                  },
+                  {
+                    name: "Inter",
+                    variants: [],
+                    displayName: "Inter",
+                    downloadUrl: "",
+                  }
+                ]}
+                previewText={previewText}
+              />
+            </div>
           </div>
         </div>
       </main>
