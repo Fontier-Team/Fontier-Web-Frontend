@@ -9,6 +9,9 @@ interface ImageUploadZoneProps {
 
 export const ImageUploadZone: React.FC<ImageUploadZoneProps> = ({ onUpload, image }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      "image/*": [".png", ".jpeg", ".jpg"],
+    },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
       onUpload(acceptedFiles[0])
