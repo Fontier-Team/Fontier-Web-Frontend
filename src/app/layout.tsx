@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${space_grotesk.className} font-inter`}>{children}</body>
+      <body className={`${inter.className} ${space_grotesk.className}`} style={{ fontFamily: "var(--font-inter)" }}>{children}</body>
     </html>
   )
 }
