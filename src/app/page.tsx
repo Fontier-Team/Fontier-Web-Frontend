@@ -4,6 +4,7 @@ import React from "react";
 import NavBar from "@/components/section/Navbar";
 import FontRecognition from "@/components/section/FontRecognition";
 import FontRecommendation from "@/components/section/FontRecommendation";
+import Image from "next/image";
 
 interface TabButtonGroupProps {
   options: string[]
@@ -38,6 +39,8 @@ export default function Home() {
 
   return (
     <>
+      <Image className="fixed -z-50 -right-32 -top-32" src="/circles.svg" alt="" width={500} height={500} />
+      <Image className="fixed -z-50 left-[calc(40vw-250px)] -bottom-48" src="/circles.svg" alt="" width={500} height={500} />
       <NavBar />
       <main className="flex flex-col items-center px-5">
         <div className="content-width w-full flex flex-col items-start gap-3">
