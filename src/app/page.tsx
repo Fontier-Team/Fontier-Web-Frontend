@@ -17,7 +17,7 @@ const TabButtonGroup: React.FC<TabButtonGroupProps> = ({ options, selected, onCl
       {options.map((option, index) => (
         <div
           key={index}
-          className={`flex flex-row items-center justify-center p-4 rounded-lg bg-white cursor-pointer w-56 border-2 ${
+          className={`flex flex-row items-center justify-center p-4 rounded-2xl bg-white cursor-pointer w-56 border-2 ${
             selected === index ? 'border-primary-text shadow-lg' : 'border-white'
           }`}
           onClick={() => onClick(index)}

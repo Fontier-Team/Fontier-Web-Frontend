@@ -1,6 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {useGoogleFont} from "@/utils/hooks";
 
 interface FontSizeSelectorProps {
   fontSize: number
@@ -46,37 +47,35 @@ interface FontPreviewProps {
 }
 
 export const FontPreview: React.FC<FontPreviewProps> = ({ font, previewText, fontSize }) => {
-  const [fontLoaded, setFontLoaded] = React.useState(false)
-
-  useEffect(() => {
-    setTimeout(async () => {
-      const fontCSS = await fetch(`https://fonts.googleapis.com/css?family=${font.name}&display=block`)
-      const style = document.createElement('style')
-      style.innerHTML = await fontCSS.text()
-      document.head.appendChild(style)
-      setFontLoaded(true)
-      return () => {
-        document.head.removeChild(style)
-      }
-    }, 0)
-  }, [font.name])
+  const fontLoaded = useGoogleFont(font.name)
 
   if (!fontLoaded) return null
 
   return (
     <>
-      <div className="flex flex-col items-stretch rounded-lg shadow-lg">
-        <div className="bg-secondary-orange text-secondary-text px-6 py-2 rounded-t-lg flex flex-row">
-          <div className="grow">{font.displayName}</div>
-          <Link href={font.downloadUrl}>
-            <div className="flex flex-row items-center gap-2">
-              <div>Download Font</div>
-              <Image src="/download.svg" alt="download" width={16} height={16} />
+      <div className="flex flex-col items-stretch">
+        <div className="flex flex-col items-stretch rounded-lg shadow-lg">
+          <div className="bg-secondary-orange text-secondary-text px-6 py-2 rounded-t-lg flex flex-row">
+            <div className="grow">{font.displayName}</div>
+            <Link href={font.downloadUrl}>
+              <div className="flex flex-row items-center gap-2">
+                <div>Download Font</div>
+                <Image src="/download.svg" alt="download" width={16} height={16} />
+              </div>
+            </Link>
+          </div>
+          <div className="min-h-[112px] flex flex-row items-center">
+            <div className="bg-white grow rounded-b-lg px-6 py-2 text-black" style={{ fontFamily: `${font.name}`, fontSize }}>
+              {previewText}
             </div>
-          </Link>
+          </div>
         </div>
-        <div className="bg-white grow rounded-b-lg px-6 py-2 text-black" style={{ fontFamily: `${font.name}`, fontSize }}>
-          {previewText}
+        <div className="flex flex-row flex-wrap">
+          {font.variants.map((variant, index) => (
+            <div key={index} className="rounded-lg shadow-lg bg-secondary-orange text-secondary-text px-6 py-2 m-2">
+              {variant}
+            </div>
+          ))}
         </div>
       </div>
     </>
@@ -90,9 +89,9 @@ interface FontPreviewListProps {
 }
 
 export const FontPreviewList: React.FC<FontPreviewListProps> = ({ fonts, previewText, matching }) => {
-  const [fontSize, setFontSize] = React.useState(20)
+  const [fontSize, setFontSize] = React.useState(32)
   return (
-    <div className="flex flex-col items-stretch gap-4">
+    <div className="flex flex-col items-stretch gap-6">
       <FontSizeSelector fontSize={fontSize} numFonts={fonts.length} onChange={setFontSize} />
       {matching ? (
         <div className="card flex flex-row items-center justify-center text-primary-gray shadow-lg h-40">
